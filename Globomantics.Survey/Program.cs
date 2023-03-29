@@ -17,6 +17,15 @@ builder.Services.AddDbContext<IdentityDbContext>(
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<IdentityDbContext>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
