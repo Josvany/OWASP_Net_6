@@ -14,7 +14,6 @@ builder.Services.AddDbContext<GlobomanticsSurveyDbContext>(
 builder.Services.AddDbContext<IdentityDbContext>(
     dbContextoptions => dbContextoptions.UseSqlite(builder.Configuration["ConnectionStrings:GloboIdentityDbConnectionString"]));
 
-
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<IdentityDbContext>();
 
