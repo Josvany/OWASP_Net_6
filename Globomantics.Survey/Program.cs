@@ -15,9 +15,12 @@ builder.Services.AddDbContext<GlobomanticsSurveyDbContext>(
 
 builder.Services.AddDbContext<IdentityDbContext>(
     dbContextoptions => dbContextoptions.UseSqlite(builder.Configuration["ConnectionStrings:GloboIdentityDbConnectionString"]));
-
+//pedir confirmacion de correo
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<IdentityDbContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>()
+//    .AddEntityFrameworkStores<IdentityDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
