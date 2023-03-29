@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Globomantics.Survey.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Globomantics.Survey.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("GloboIdentityDbConnectionString") ?? throw new InvalidOperationException("Connection string 'IdentityDbContextConnection' not found.");
@@ -14,7 +16,7 @@ builder.Services.AddDbContext<GlobomanticsSurveyDbContext>(
 builder.Services.AddDbContext<IdentityDbContext>(
     dbContextoptions => dbContextoptions.UseSqlite(builder.Configuration["ConnectionStrings:GloboIdentityDbConnectionString"]));
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<IdentityDbContext>();
 
 builder.Services.Configure<IdentityOptions>(options =>
@@ -25,6 +27,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireUppercase = false;
     options.Password.RequireNonAlphanumeric = false;
 });
+
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
