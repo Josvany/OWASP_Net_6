@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Globomantics.Survey/GloboSurvey.db-wal
+/Globomantics.Survey/GloboSurvey.db-shm
+/Globomantics.Survey/GloboSurvey.db
+/Globomantics.Survey/GloboIdentity.db
