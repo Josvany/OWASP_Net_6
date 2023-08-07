@@ -103,6 +103,13 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+
+            //generar un nuevo token para la session
+            Response.Cookies.Delete("__Host-Session", new CookieOptions()
+            {
+                Secure = true
+            });
+
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();

@@ -32,4 +32,5 @@
       dotnet aspnet-codegenerator identity -dc Globomantics.Survey.Data.IdentityDbContext --files "Account.Manage.Disable2fa;Account.Manage.TwoFactorAuthentication" --useSqLite
 
 ## 2. Session Management
-    - 
+    - Crear pin para ingresar a la pagina
+      dotnet aspnet-codegenerator identity -dc Globomantics.Survey.Data.IdentityDbContext --files "Account.LoginWith2fa" --useSqLite 

@@ -21,6 +21,19 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 //builder.Services.AddDefaultIdentity<IdentityUser>()
 //    .AddEntityFrameworkStores<IdentityDbContext>();
 
+
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.Cookie.HttpOnly = true;
+    opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    opt.Cookie.SameSite = SameSiteMode.Strict; // esto indica cuando se ajusta la solicitud de la cookie es decir que solo se podra leer cuando la fuente de la solicitud sea nuestro sitio
+    opt.Cookie.Path = "/"; // esto es para que la cookie sea revelevante para todo el directorio
+    opt.Cookie.Name = "__Host-Identity";
+    opt.Cookie.MaxAge = TimeSpan.FromHours(12);
+    opt.ExpireTimeSpan = TimeSpan.FromHours(12);
+});
+
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     options.Password.RequiredLength = 6;
@@ -44,6 +57,8 @@ builder.Services.AddSession(opt =>
     opt.Cookie.SameSite = SameSiteMode.Strict; // esto indica cuando se ajusta la solicitud de la cookie es decir que solo se podra leer cuando la fuente de la solicitud sea nuestro sitio
     opt.Cookie.Path = "/"; // esto es para que la cookie sea revelevante para todo el directorio
     opt.Cookie.Name = "__Host-Session";
+    opt.Cookie.MaxAge = TimeSpan.FromHours(1);
+    opt.IdleTimeout = TimeSpan.FromMinutes(20);
 });
 
 var app = builder.Build();

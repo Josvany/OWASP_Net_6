@@ -27,6 +27,11 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+
+            //clear all cookies
+            HttpContext.Session.Clear();
+            DeleteAllCookies();
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
@@ -36,6 +41,17 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
                 // This needs to be a redirect so that the browser performs a new
                 // request and the identity for the user gets updated.
                 return RedirectToPage();
+            }
+        }
+
+        private void DeleteAllCookies()
+        {
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie, new CookieOptions()
+                {
+                    Secure = true
+                });
             }
         }
     }
