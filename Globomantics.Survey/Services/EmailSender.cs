@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Globomantics.Survey.Services
 {
@@ -10,4 +10,5 @@ namespace Globomantics.Survey.Services
             return Task.CompletedTask;
         }
     }
+
 }

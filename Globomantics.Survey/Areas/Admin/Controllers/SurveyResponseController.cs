@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Globomantics.Survey.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
+    //[EnforceStepUp]
     [Area("Admin")]
     public class SurveyResponseController : Controller
     {
@@ -20,13 +21,20 @@ namespace Globomantics.Survey.Areas.Admin.Controllers
             CustomerSurvey? customerSurvey = _globomanticsSurveyDbContext.CustomerSurveys
                 .Include(x => x.Questions).FirstOrDefault(x => x.Id == id);
 
-            List<CustomerSurveyResponse>? customerSurveyResponse = _globomanticsSurveyDbContext.CustomerSurveyResponses
+            customerSurvey.Questions = customerSurvey.Questions.OrderBy(x => x.Question).ToList();
+
+            List<CustomerSurveyResponse>? customerSurveyResponses = _globomanticsSurveyDbContext.CustomerSurveyResponses
                 .Include(x => x.Answers)
                 .Where(x => x.SurveyId == id).ToList();
 
+            foreach (var customerSurveyResponse in customerSurveyResponses)
+            {
+                customerSurveyResponse.Answers = customerSurveyResponse.Answers.OrderBy(x => x.Question).ToList();
+            } 
+
             SurveyResponseViewModel surveyResponseViewModel = new SurveyResponseViewModel(
                 customerSurvey,
-                customerSurveyResponse
+                customerSurveyResponses
                 );
             return View(surveyResponseViewModel);
         }

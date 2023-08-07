@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Globomantics.Survey.Migrations.IdentityDb
 {
-    public partial class Identity : Migration
+    public partial class CreateUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -153,6 +153,16 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "6e6e3afa-b637-4ab7-a5c5-2c0156c945fb", 0, "18844320-9dd3-4c94-a4b7-3ca0d7c965be", "Admin@globomantics.com", true, false, null, "ADMIN@GLOBOMANTICS.COM", "ADMIN@GLOBOMANTICS.COM", "AQAAAAEAACcQAAAAEHksbvroiAXLPF4CYD0hM7+vc+XJjA8EyhfVFcNDG/wTf58ofCO+XinK1lQMpiLmeA==", null, false, "6aadb14f-1995-45d5-aa12-a6ad72898161", false, "Admin@globomantics.com" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "c7a39a22-06f1-4619-a12b-14fa430144bb", 0, "51e3cd45-aff7-4cd1-a04e-cba80c6df836", "SuperAdmin@globomantics.com", true, false, null, "SUPERADMIN@GLOBOMANTICS.COM", "SUPERADMIN@GLOBOMANTICS.COM", "AQAAAAEAACcQAAAAEGt4ousyFyz3Z7PKTVtnG09CtXhnp+GdGaXOrQ79521bvB2kT9rsZ8DQFp2SdKkpyQ==", null, false, "5ca230ce-9683-4406-82a9-c918743e34f0", false, "SuperAdmin@globomantics.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

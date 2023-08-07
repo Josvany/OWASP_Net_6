@@ -1,10 +1,10 @@
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 
@@ -19,7 +19,7 @@ body {
 
 .text {
     color: black;
-    font-size: 12px;
+    font-size: 14px;
     font-style: italic;
-    padding-left: 12px;
+    padding-left: 14px;
 }

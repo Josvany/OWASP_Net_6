@@ -30,7 +30,13 @@
                                 View Surveys
                             </a>   
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="@Url.Action("index","User",new {Area="admin"})">
+                                Users
+                            </a>   
+                        </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>

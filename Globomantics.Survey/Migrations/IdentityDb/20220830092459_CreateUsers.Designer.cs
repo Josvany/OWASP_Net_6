@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Globomantics.Survey.Migrations.IdentityDb
 {
     [DbContext(typeof(IdentityDbContext))]
-    [Migration("20221101231639_Identity")]
-    partial class Identity
+    [Migration("20220830092459_CreateUsers")]
+    partial class CreateUsers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -130,6 +130,40 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6e6e3afa-b637-4ab7-a5c5-2c0156c945fb",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "18844320-9dd3-4c94-a4b7-3ca0d7c965be",
+                            Email = "Admin@globomantics.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GLOBOMANTICS.COM",
+                            NormalizedUserName = "ADMIN@GLOBOMANTICS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHksbvroiAXLPF4CYD0hM7+vc+XJjA8EyhfVFcNDG/wTf58ofCO+XinK1lQMpiLmeA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6aadb14f-1995-45d5-aa12-a6ad72898161",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin@globomantics.com"
+                        },
+                        new
+                        {
+                            Id = "c7a39a22-06f1-4619-a12b-14fa430144bb",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "51e3cd45-aff7-4cd1-a04e-cba80c6df836",
+                            Email = "SuperAdmin@globomantics.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SUPERADMIN@GLOBOMANTICS.COM",
+                            NormalizedUserName = "SUPERADMIN@GLOBOMANTICS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGt4ousyFyz3Z7PKTVtnG09CtXhnp+GdGaXOrQ79521bvB2kT9rsZ8DQFp2SdKkpyQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5ca230ce-9683-4406-82a9-c918743e34f0",
+                            TwoFactorEnabled = false,
+                            UserName = "SuperAdmin@globomantics.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

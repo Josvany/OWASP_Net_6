@@ -3,6 +3,7 @@ using System;
 using Globomantics.Survey.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Globomantics.Survey.Migrations.IdentityDb
 {
     [DbContext(typeof(IdentityDbContext))]
-    partial class IdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220830093752_CreateUsersClaim")]
+    partial class CreateUsersClaim
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.8");
@@ -41,6 +43,15 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "9eafa2c9-03cb-4878-b63c-81c7254c32b5",
+                            ConcurrencyStamp = "1",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -128,6 +139,40 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8516e0b6-aaf7-4086-b2b8-60a595e3d62c",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "e9e3293b-53a1-435c-b242-e6c775ad6f68",
+                            Email = "Admin@globomantics.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GLOBOMANTICS.COM",
+                            NormalizedUserName = "ADMIN@GLOBOMANTICS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFsQwWOquL/Xs5+pWqAM7lYY6S45LhRFvkT53EOHdSiWQIpHFKcQsXy5ON8sbKiEoQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "495cb088-b1ea-476d-ae81-2c5ba6bfb42a",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin@globomantics.com"
+                        },
+                        new
+                        {
+                            Id = "b0a6b4d1-900d-4533-8e5a-94db8bf604e9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b13621c2-3e11-4aca-a5d2-5920a654bcd6",
+                            Email = "SuperAdmin@globomantics.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SUPERADMIN@GLOBOMANTICS.COM",
+                            NormalizedUserName = "SUPERADMIN@GLOBOMANTICS.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFX1iBtMYqGIA8GXpqpWAFOR6vggxp0+oq1yTeDWDV2hHGZkQrrYDC6VqtHVCQ126g==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "ed46c994-73ac-466c-8765-66b2319719b6",
+                            TwoFactorEnabled = false,
+                            UserName = "SuperAdmin@globomantics.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -151,6 +196,15 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                     b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "IsManager",
+                            ClaimValue = "true",
+                            UserId = "b0a6b4d1-900d-4533-8e5a-94db8bf604e9"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -190,6 +244,18 @@ namespace Globomantics.Survey.Migrations.IdentityDb
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8516e0b6-aaf7-4086-b2b8-60a595e3d62c",
+                            RoleId = "9eafa2c9-03cb-4878-b63c-81c7254c32b5"
+                        },
+                        new
+                        {
+                            UserId = "b0a6b4d1-900d-4533-8e5a-94db8bf604e9",
+                            RoleId = "9eafa2c9-03cb-4878-b63c-81c7254c32b5"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

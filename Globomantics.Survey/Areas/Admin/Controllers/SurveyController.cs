@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Globomantics.Survey.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator")]
     [Area("Admin")]
     public class SurveyController : Controller
     {
