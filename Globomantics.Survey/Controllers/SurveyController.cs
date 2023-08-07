@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.Data.Sqlite;
+
 namespace Globomantics.Survey.Controllers
 {
     public class SurveyController : Controller
@@ -18,6 +20,51 @@ namespace Globomantics.Survey.Controllers
             return View(customerSurvey);
         }
 
+        public ActionResult SurveyCompleteMessageAdo(string id)
+        {
+            string message = "";
+
+            using (var command = _globomanticsSurveyDbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = 
+                    "Select SurveyCompleteMessage from CustomerSurveys where id = @id";
+                command.Parameters.Add(new SqliteParameter("@id", id.ToUpper()));
+                _globomanticsSurveyDbContext.Database.OpenConnection();
+                try
+                {
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            message += reader.GetString(0) + "<br><br>";
+                        }
+                    }
+                }
+                finally
+                {
+                    _globomanticsSurveyDbContext.Database.CloseConnection();
+                }
+            }
+
+            return View("SurveyCompleteMessage", message);
+        }
+
+       public ActionResult SurveyCompleteMessageEF(string id)
+        {
+            var results = _globomanticsSurveyDbContext
+                .CustomerSurveys
+                .FromSqlRaw("Select * from CustomerSurveys where id = {0}", id.ToUpper())
+                .ToList();
+
+            string message = "";
+            foreach(var result in results)
+            {
+                message += result.SurveyCompleteMessage + "<br><br>";
+            }
+
+            return View("SurveyCompleteMessage", message);
+        }
+
         [HttpPost]
         public async Task<ActionResult> CompleteSurvey(Guid id, SurveyAnswer[] questions)
         {
@@ -34,7 +81,7 @@ namespace Globomantics.Survey.Controllers
 
             await _globomanticsSurveyDbContext.SaveChangesAsync();
 
-            return View(viewName: "SurveyComplete", model: customerSurvey);
+            return Redirect("Survey/SurveyCompleteMessage/" + id);
         }
 
     }

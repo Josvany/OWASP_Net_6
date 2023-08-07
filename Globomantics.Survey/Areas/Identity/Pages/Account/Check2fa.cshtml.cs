@@ -44,9 +44,7 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
 
             if (!user.TwoFactorEnabled)
             {
-                return RedirectToPage(
-                    "/Identity/Account/Manage/EnableAuthenticator", 
-                    new { ReturnUrl = returnUrl});
+                return Redirect("/Identity/Account/Manage/EnableAuthenticator");
             }
             ReturnUrl = returnUrl;
             return Page();

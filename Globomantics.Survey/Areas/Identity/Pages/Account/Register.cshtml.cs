@@ -70,6 +70,11 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Display(Name = "First name")]
+            // [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            // [RegularExpression(@"^[a-zA-Z'\-\s]{1,20}$", ErrorMessage = "Invalid Characters.")]
+            public string FirstName { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -127,7 +132,7 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email,firstName = Input.FirstName, returnUrl = returnUrl });
                     }
                     else
                     {

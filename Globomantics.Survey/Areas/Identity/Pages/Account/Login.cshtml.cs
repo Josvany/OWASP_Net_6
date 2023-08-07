@@ -110,6 +110,11 @@ namespace Globomantics.Survey.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                if (!Url.IsLocalUrl(returnUrl))
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid return URL");
+                    return Page();
+                }
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);

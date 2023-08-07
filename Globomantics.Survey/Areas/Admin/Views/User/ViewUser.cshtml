@@ -43,13 +43,25 @@
             }
           }
           </td>
+          <td>
+              <button class="popup-open">Send Message</button>
+          </td>
       </tr>
 
   </tbody>
 </table>
    
-
-
+<div class="popup">
+ <div class="popup-body">
+    <h2>Send Message</h2>
+        <form asp-controller="User" asp-action="SendEmail" asp-route-id="@Model.User.Id" method="post">
+            <input type="hidden" name="guid" value="@Model.User.Id" />
+            <input type="text" name="message" size="100">
+            <button type="submit">Send email</button>
+        </form>
+    <button class="popup-close">Close</button>    
+  </div>
+</div>
 </div>
 
 

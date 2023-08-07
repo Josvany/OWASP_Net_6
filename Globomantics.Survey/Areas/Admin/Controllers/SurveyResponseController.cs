@@ -1,10 +1,11 @@
-﻿using Globomantics.Survey.Areas.Admin.ViewModels;
+﻿using System.Text;
+using System.Xml;
+using Globomantics.Survey.Areas.Admin.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Globomantics.Survey.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Administrator")]
-    //[EnforceStepUp]
     [Area("Admin")]
     public class SurveyResponseController : Controller
     {
@@ -16,6 +17,7 @@ namespace Globomantics.Survey.Areas.Admin.Controllers
         }
 
         [HttpGet("Admin/SurveyResponses/{Id:guid}")]
+        [EnforceStepUp]
         public IActionResult Index(Guid id)
         {
             CustomerSurvey? customerSurvey = _globomanticsSurveyDbContext.CustomerSurveys
@@ -38,5 +40,30 @@ namespace Globomantics.Survey.Areas.Admin.Controllers
                 );
             return View(surveyResponseViewModel);
         }
+
+        [HttpGet("Admin/SurveyResponse/upload")]
+        public IActionResult Upload()
+        {
+            return View();
+        }
+
+        [HttpPost("Admin/SurveyResponse/upload")]
+        public IActionResult Upload(string xmlContent)
+        {
+            string output = "";
+            using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(xmlContent)))
+            {
+                XmlReader xmlReader = XmlReader.Create(stream);
+                
+                var xmlDocument = new XmlDocument();
+                xmlDocument.XmlResolver = new XmlUrlResolver(); 
+                xmlDocument.Load(xmlReader);
+                output = xmlDocument.InnerText;
+
+                return View("uploadResponse", output);
+            }
+        }
     }
+
+
 }

@@ -19,15 +19,21 @@
     {
         <tr>
             <td>
-            <a class="nav-link text-dark" href="/admin/Survey/@customerSurvey.Id">
-                @Html.DisplayFor(model => customerSurvey.Title)
-            </a>          
+              <a class="nav-link text-dark" href="/admin/Survey/@customerSurvey.Id">
+                  @Html.DisplayFor(model => customerSurvey.Title)
+              </a>          
             </td>
             <td>
-            <a class="nav-link text-dark" href="/admin/SurveyResponses/@customerSurvey.Id">
-                View Responses
-            </a>          
+              <a class="nav-link text-dark" href="/admin/SurveyResponses/@customerSurvey.Id">
+                  View Responses
+              </a>          
             </td>
+            <td>
+              <form asp-action="SurveyReport" method="post">
+                  <input type="hidden" name="surveyName" value="@customerSurvey.Title" />
+                  <button type="submit">Run Report</button>
+              </form>
+            </td>            
         </tr>
     }
 

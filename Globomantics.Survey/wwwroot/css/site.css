@@ -4,7 +4,7 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 18px;
+    font-size: 26px;
   }
 }
 
@@ -22,4 +22,20 @@ body {
     font-size: 14px;
     font-style: italic;
     padding-left: 14px;
+}
+
+.popup {
+  visibility:hidden;
+}
+  
+.popup-body {
+  visibility:hidden;
+}
+
+.popup.active{
+  visibility:visible;
+}
+  
+.popup-body.active {
+  visibility:visible;
 }
