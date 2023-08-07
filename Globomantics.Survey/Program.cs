@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Globomantics.Survey.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Globomantics.Survey.Services;
@@ -15,8 +14,8 @@ builder.Services.AddDbContext<GlobomanticsSurveyDbContext>(
 
 builder.Services.AddDbContext<IdentityDbContext>(
     dbContextoptions => dbContextoptions.UseSqlite(builder.Configuration["ConnectionStrings:GloboIdentityDbConnectionString"]));
-//pedir confirmacion de correo
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//pedir confirmacion de correo en true para confirmacion
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<IdentityDbContext>();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>()
@@ -35,6 +34,18 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
+// habilitar la cache y session
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(opt =>
+{
+    opt.Cookie.HttpOnly = true;
+    opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+    opt.Cookie.SameSite = SameSiteMode.Strict; // esto indica cuando se ajusta la solicitud de la cookie es decir que solo se podra leer cuando la fuente de la solicitud sea nuestro sitio
+    opt.Cookie.Path = "/"; // esto es para que la cookie sea revelevante para todo el directorio
+    opt.Cookie.Name = "__Host-Session";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,6 +60,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapAreaControllerRoute(
     name: "Admin",

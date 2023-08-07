@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /Globomantics.Survey/GloboSurvey.db-shm
 /Globomantics.Survey/GloboSurvey.db
 /Globomantics.Survey/GloboIdentity.db
+/Globomantics.Survey/GloboIdentity.db-shm
+/Globomantics.Survey/GloboIdentity.db-wal
